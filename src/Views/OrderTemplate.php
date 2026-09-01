@@ -12,9 +12,14 @@ class OrderTemplate extends BaseTemplate
         $template = parent::getTemplate();
         $title= 'Создание заказа';
         $content = <<<CORUSEL
-        <main class="row p-5">
-            <h1 class="mb-5">Создание заказа</h1>
-            <h3>Список товаров (Корзина)</h1>
+        <main class="row p-5 order-page">
+            <h1 class="mb-4">Создание заказа</h1>
+            <h3 class="mb-3">Список товаров (Корзина)</h3>
+            <div class="order-list-header row g-0 mb-2">
+                <div class="col-6 col-md-5">Товар</div>
+                <div class="col-4 col-md-4">Количество и цена</div>
+                <div class="col-2 col-md-3 text-end">Сумма</div>
+            </div>
         CORUSEL;
         $content .= self::getProductList($products);
         $content .= self::getSummaryInfo($all_sum, $dataProfile);
@@ -37,14 +42,14 @@ class OrderTemplate extends BaseTemplate
             $sum = $price * $quantity;
 
             $content .= <<<LINE
-                <div class="row">
-                    <div class="col-5">
+                <div class="row g-0 order-list-item align-items-center">
+                    <div class="col-6 col-md-5 order-item-name">
                     {$name}
                     </div>
-                    <div class="col-3">
+                    <div class="col-4 col-md-4 order-item-meta">
                     {$quantity} ед. x {$price} руб.
                     </div>
-                    <div class="col-2">
+                    <div class="col-2 col-md-3 text-end order-item-sum">
                     {$sum} ₽
                     </div>
                 </div>
@@ -62,14 +67,14 @@ class OrderTemplate extends BaseTemplate
         if ($all_sum == 0) {
             $content .= <<<LINE
             <div class="row">
-                <div class="col-12">
+                <div class="col-12 order-empty-list">
                 - нет добавленных товаров -
                 </div>
             </div>
             LINE;
         } else {
             $content .= <<<LINE
-                <div class="row">
+                <div class="row order-total-row mt-3">
                     <hr>
                     <div class="col-5">
                         <strong>Общая сумма:</strong>
@@ -77,7 +82,7 @@ class OrderTemplate extends BaseTemplate
                     <div class="col-3">
                         &nbsp;
                     </div>
-                    <div class="col-2">
+                    <div class="col-2 order-total-value">
                         <strong>{$all_sum} ₽</strong>
                     </div>
                 </div>    

@@ -8,8 +8,8 @@ class UserDBStorage extends DBStorage implements ISaveStorage
     public function saveData(string $name, array $data): bool
     {
         $sql = "INSERT INTO `users`
-        (`username`, `email`, `password`, `token`) 
-        VALUES (:name, :email, :pass, :token)";
+        (`username`, `email`, `password`, `token`, `is_verified`) 
+        VALUES (:name, :email, :pass, :token, :is_verified)";
 
         $sth = $this->connection->prepare($sql);
 
@@ -17,7 +17,8 @@ class UserDBStorage extends DBStorage implements ISaveStorage
             'name' => $data['username'],
             'email' => $data['email'],
             'pass' => $data['password'],
-            'token' => $data['token']
+            'token' => $data['token'],
+            'is_verified' => $data['is_verified'] ?? 0
         ] );
 
         return $result;
@@ -118,7 +119,7 @@ class UserDBStorage extends DBStorage implements ISaveStorage
     public function getDataHistory(int $idUser): ?array {
 
         $stmt = $this->connection->prepare(
-            "SELECT id, created, all_sum, status
+            "SELECT id, created_at AS created, all_sum, status
             FROM orders WHERE user_id = :userId ");
         $stmt->execute(["userId" => $idUser]);
 

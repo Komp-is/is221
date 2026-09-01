@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Хост: 127.0.0.1
--- Время создания: Май 11 2026 г., 12:57
+-- Время создания: Сен 01 2026 г., 17:33
 -- Версия сервера: 10.4.32-MariaDB
 -- Версия PHP: 8.2.12
 
@@ -68,6 +68,13 @@ CREATE TABLE `orders` (
   `created_at` datetime NOT NULL DEFAULT current_timestamp()
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
+--
+-- Дамп данных таблицы `orders`
+--
+
+INSERT INTO `orders` (`id`, `order_date`, `status`, `fio`, `address`, `phone`, `email`, `all_sum`, `user_id`, `created_at`) VALUES
+(8, '2026-05-13 19:09:28', '1', 'Влад', 'город Кемерово', '+79047656453', 'denis.kupriyanov.2021@gmail.com', 38440.00, 6, '2026-05-13 19:09:28');
+
 -- --------------------------------------------------------
 
 --
@@ -82,6 +89,15 @@ CREATE TABLE `order_item` (
   `price_item` decimal(10,2) NOT NULL DEFAULT 0.00,
   `sum_item` decimal(10,2) NOT NULL DEFAULT 0.00
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Дамп данных таблицы `order_item`
+--
+
+INSERT INTO `order_item` (`id`, `order_id`, `product_id`, `count_item`, `price_item`, `sum_item`) VALUES
+(9, 8, 2, 1, 12540.00, 12540.00),
+(10, 8, 3, 1, 8720.00, 8720.00),
+(11, 8, 6, 2, 8590.00, 17180.00);
 
 -- --------------------------------------------------------
 
@@ -139,7 +155,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `username`, `email`, `password`, `token`, `is_verified`, `address`, `phone`) VALUES
-(5, '1234', 'matzau2@bk.ru', '$2y$10$09TzUzAlOCf9HrFvlqMHG.mdUnpT6J3oANoUSWC78YdyHO70z/IUq', '', 1, NULL, NULL);
+(5, '1234', 'matzau2@bk.ru', '$2y$10$09TzUzAlOCf9HrFvlqMHG.mdUnpT6J3oANoUSWC78YdyHO70z/IUq', '', 1, NULL, NULL),
+(6, 'Влад', 'denis.kupriyanov.2021@gmail.com', '$2y$10$SvhVadv3cD1wkV.H0XxI8eMoO07ft9wKz4lZ5apyLS/O8QRFlyl9O', '', 1, NULL, NULL);
 
 --
 -- Индексы сохранённых таблиц
@@ -192,13 +209,13 @@ ALTER TABLE `home_slides`
 -- AUTO_INCREMENT для таблицы `orders`
 --
 ALTER TABLE `orders`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
 
 --
 -- AUTO_INCREMENT для таблицы `order_item`
 --
 ALTER TABLE `order_item`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT для таблицы `products`
@@ -210,7 +227,7 @@ ALTER TABLE `products`
 -- AUTO_INCREMENT для таблицы `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- Ограничения внешнего ключа сохраненных таблиц

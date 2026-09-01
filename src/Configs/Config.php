@@ -5,6 +5,7 @@ class Config {
     const FILE_PRODUCTS=".\storage\data.json";
     const FILE_ORDERS=".\storage\order.json";
     const FILE_USERS=".\storage\user.json";
+    const FILE_FEEDBACK="./storage/feedback.json";
 
     const TYPE_FILE="file";
     const TYPE_DB="db";

@@ -13,9 +13,10 @@ class UserTemplate extends BaseTemplate
         $template = parent::getTemplate();
         $title= 'Вход пользователя';
         $content = <<<CORUSEL
-        <main class="row p-5 justify-content-center align-items-center">
-            <div class="col-5 bg-light border">
-                <h3 class="mb-5">Вход пользователя</h3>
+        <main class="row p-5 justify-content-center align-items-center auth-screen">
+            <div class="col-11 col-md-8 col-lg-6 col-xl-5 bg-light border auth-card auth-card-login p-4 p-md-5">
+                <h3 class="mb-4 auth-title">Вход пользователя</h3>
+                <p class="auth-subtitle">Рады снова видеть вас в магазине</p>
         CORUSEL;
         $content .= self::getFormLogin();
         $content .= "</div></main>";

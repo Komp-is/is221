@@ -21,8 +21,18 @@ class ProductController {
 
         $data = $model->loadData();
 
-        if (!isset($id))
-            return ProductTemplate::getAllTemplate($data);
+        if (!isset($id)) {
+            $search = isset($_GET['q']) ? trim(strip_tags((string)$_GET['q'])) : '';
+            if ($search !== '') {
+                $searchLower = mb_strtolower($search);
+                $data = array_values(array_filter($data, function ($item) use ($searchLower) {
+                    $name = mb_strtolower((string)($item['name'] ?? ''));
+                    $description = mb_strtolower((string)($item['description'] ?? ''));
+                    return str_contains($name, $searchLower) || str_contains($description, $searchLower);
+                }));
+            }
+            return ProductTemplate::getAllTemplate($data, $search);
+        }
         if (($id) && ($id <= count($data))) {
             $record= $data[$id-1];
             return ProductTemplate::getCardTemplate($record);

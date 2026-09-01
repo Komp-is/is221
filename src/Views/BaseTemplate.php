@@ -13,11 +13,12 @@ class BaseTemplate
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title> %s </title>
             <link rel="stylesheet" href="https://localhost/pizza221/assets/css/bootstrap.min.css">
+            <link rel="stylesheet" href="https://localhost/pizza221/assets/css/custom.css">
             <script src="https://localhost/pizza221/assets/js/bootstrap.bundle.js"></script>
         </head>
-        <body>
+        <body class="site-body">
             <header>
-                <nav class="navbar navbar-expand-lg bg-body-tertiary">
+                <nav class="navbar navbar-expand-lg bg-body-tertiary shadow-sm sticky-top">
                 <div class="container-fluid">
                     <a class="navbar-brand" href="#">
                         <img src="https://localhost/pizza221/assets/images/logo.png" alt="Логотип компании" width="64" height="64">
@@ -95,7 +96,7 @@ if ($user_id > 0) {
 
         $template.= <<<LINE
             %s
-            <footer class="mt-3 p-3">
+            <footer class="mt-4 p-3 text-center site-footer">
                 © 2025 «Кемеровский кооперативный техникум»
             <footer>
         </body>

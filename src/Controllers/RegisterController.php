@@ -5,7 +5,6 @@ use App\Views\RegisterTemplate;
 use App\Models\User;
 use App\Services\UserFactory;
 use App\Services\ValidateRegisterData;
-use App\Services\Mailer;
 use App\Configs\Config;
 use App\Services\UserDBStorage;
 
@@ -51,22 +50,17 @@ class RegisterController {
         }
         
         $hashed_password = password_hash($arr['password'], PASSWORD_DEFAULT );
-        $verification_token = bin2hex(random_bytes(16));
 
         $arr['password'] = $hashed_password;
-        $arr['token'] = $verification_token;
+        // Email-подтверждение отключено: активируем пользователя сразу.
+        $arr['token'] = '';
+        $arr['is_verified'] = 1;
         // Создаем модель Product для работы с данными
         $model = UserFactory::createUser();
         // сохраняем данные
         $model->saveData($arr);
-
-        Mailer::sendMailUserConfirmation(
-            $arr['email'], 
-            $verification_token,
-            $arr['username']
-        );
         // сообщение для пользователя
-        $_SESSION['flash'] = "Спасибо за регистрацию! На ваш емайл отправлено письмо для подтверждения регистрации.";
+        $_SESSION['flash'] = "Спасибо за регистрацию! Аккаунт успешно создан, можно войти на сайт.";
         
         // переадресация на Главную
 	    header("Location: /pizza221/");
